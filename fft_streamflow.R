@@ -1,12 +1,6 @@
----
-title: "Fourier Transform in Hydrology"
-format: html
-editor: visual
----
-
 ## Download the flow data
 
-```{r}
+
 # Define URL for the data
 url <- "https://nwis.waterdata.usgs.gov/nwis/dv?cb_00010=on&cb_00060=on&cb_00065=on&cb_00095=on&cb_00300=on&format=rdb&site_no=02334430&legacy=&referred_module=sw&period=&begin_date=1950-01-01&end_date=2023-12-31"
 
@@ -25,10 +19,10 @@ data$q <- as.numeric(data[,"q"])
 q <- data[, c("q")]
 q.timeseries <- data[, c("date", "q")]
 
-```
+
 
 ## FFT and seasonal signals without noise
-```{r}
+
 library(fftw)
 
 q <- na.omit(q)
@@ -48,11 +42,11 @@ plot(q, type = "l", xlab = "Time", ylab = "Streamflow", main = "Original Streamf
 # Plot the FFT magnitude
 plot(frequencies, fft_magnitude, type = "l", xlab = "Frequency", ylab = "Magnitude")
 
-```
+
 
 
 ## Reconstruction and validation of original timeseries
-```{r}
+
 # Load necessary library
 library(stats)
 
@@ -89,11 +83,11 @@ if (length(q) == length(reconstructed_signal)) {
     print("The lengths of the original and reconstructed data do not match. Cannot calculate correlation.")
 }
 
-```
+
 
 
 # Denoising, transforming and reconstructing the denoised data. 
-```{r}
+
 # Define the window size for the moving average
 window_size <- 15
 
@@ -137,11 +131,11 @@ if (length(q_smoothed) == length(reconstructed_signal)) {
 } else {
     print("The lengths of the smoothed and reconstructed data do not match. Cannot calculate correlation.")
 }
-```
+
 
 
 ## Effect of variable smoothing window sizes
-```{r}
+
 # Define the window size and create filter weights
 window_size <- 7  # For example, a 30-day moving average
 filter_weights <- rep(1 / window_size, window_size)
@@ -179,11 +173,11 @@ for (i in seq_along(window_sizes)) {
 # Add a legend to the plot to distinguish between different window sizes
 legend("topright", legend=paste(window_sizes, "days"), col=colors, lty=1, cex=0.8)
 
-```
+
 
 
 ## Extract & verify low-flow season
-```{r}
+
 
 # Compute the FFT
 fft_result <- fft(q)
@@ -224,4 +218,4 @@ var_filtered <- var(filtered_signal)
 # Autocorrelation
 acf(q, main = "ACF of Original Streamflow", plot = TRUE)
 acf(filtered_signal, main = "ACF of Filtered Streamflow", plot = TRUE)
-```
+
