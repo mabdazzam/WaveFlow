@@ -50,12 +50,10 @@ plot(frequencies, fft_magnitude, type = "l", xlab = "Frequency", ylab = "Magnitu
 
 ```
 
-
 ## Reconstruction and validation of original timeseries
 ```{r}
 # Load necessary library
 library(stats)
-
 
 q <- na.omit(q)  # Ensuring there are no NA values in the dataset
 
@@ -90,7 +88,6 @@ if (length(q) == length(reconstructed_signal)) {
 }
 
 ```
-
 
 # Denoising, transforming and reconstructing the denoised data. 
 ```{r}
@@ -181,7 +178,6 @@ legend("topright", legend=paste(window_sizes, "days"), col=colors, lty=1, cex=0.
 
 ```
 
-
 ## Extract & verify low-flow season
 ```{r}
 
@@ -213,7 +209,6 @@ legend("topright", legend=c("Original", "Filtered"), col=c("blue", "red"), lty=1
 # Plot low-frequency components
 low_freq_part <- frequencies < 1000  # Adjust based on data and observation
 plot(frequencies[low_freq_part], fft_magnitude[low_freq_part], type = "l", main = "Low Frequency FFT Components", xlab = "Frequency", ylab = "Magnitude")
-
 
 # Calculate basic statistics
 mean_original <- mean(q)
