@@ -1,6 +1,7 @@
 ---
 title: "Fourier Transform of streamflow data for seasonal signals extraction"
-format: html
+author: "Abdullah Azzam"
+format: pdf
 editor: visual
 ---
 
@@ -28,6 +29,7 @@ q.timeseries <- data[, c("date", "q")]
 ```
 
 ## FFT and seasonal signals without noise
+
 ```{r}
 library(fftw)
 
@@ -51,6 +53,7 @@ plot(frequencies, fft_magnitude, type = "l", xlab = "Frequency", ylab = "Magnitu
 ```
 
 ## Reconstruction and validation of original timeseries
+
 ```{r}
 # Load necessary library
 library(stats)
@@ -89,7 +92,8 @@ if (length(q) == length(reconstructed_signal)) {
 
 ```
 
-# Denoising, transforming and reconstructing the denoised data. 
+# Denoising, transforming and reconstructing the denoised data.
+
 ```{r}
 # Define the window size for the moving average
 window_size <- 15
@@ -136,8 +140,8 @@ if (length(q_smoothed) == length(reconstructed_signal)) {
 }
 ```
 
-
 ## Effect of variable smoothing window sizes
+
 ```{r}
 # Define the window size and create filter weights
 window_size <- 7  # For example, a 30-day moving average
@@ -179,6 +183,7 @@ legend("topright", legend=paste(window_sizes, "days"), col=colors, lty=1, cex=0.
 ```
 
 ## Extract & verify low-flow season
+
 ```{r}
 
 # Compute the FFT
